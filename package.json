@@ -1,0 +1,20 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "generate-api-client": "openapi-generator-cli generate -i https://mkrolik-places.ashycoast-2fd8c4d9.germanywestcentral.azurecontainerapps.io/swagger/v1/swagger.json -g typescript-fetch -o api-client"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "nuxt": "^3.13.0",
+    "sass": "^1.77.8",
+    "vue": "latest",
+    "vuetify": "^3.7.0-beta.1"
+  }
+}
