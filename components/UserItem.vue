@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card link :to="`${user.id}/places`">
+    <v-card link :to="`${user.id}/places`" variant="outlined">
       <v-card-title>{{ user.email }}</v-card-title>
       <v-card-subtitle v-if="user.places.length === 1"
         >{{ user.places.length }} Place</v-card-subtitle

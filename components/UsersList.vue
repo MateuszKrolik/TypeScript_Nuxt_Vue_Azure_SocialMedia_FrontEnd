@@ -5,9 +5,9 @@
         <UserItem :user="u" :id="u.id" />
       </div>
     </div>
-    <v-alert type="info" v-else>
-      <p>No users available</p>
-    </v-alert>
+    <v-card v-else variant="outlined">
+      <v-card-title>No users available</v-card-title>
+    </v-card>
   </div>
 </template>
 
