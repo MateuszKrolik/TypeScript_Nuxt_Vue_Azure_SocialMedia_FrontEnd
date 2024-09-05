@@ -11,7 +11,12 @@
       <v-card-title>{{ place.title }}</v-card-title>
       <v-card-subtitle>{{ place.address }}</v-card-subtitle>
       <v-card-text>{{ place.description }}</v-card-text>
-      <v-btn>VIEW ON MAP</v-btn>
+      <Dialog :title="place.address" buttonText="View on map">
+        <MapIframe
+          :lat="place.placeLocation.lat"
+          :lng="place.placeLocation.lng"
+        />
+      </Dialog>
       <v-btn>EDIT</v-btn>
       <v-btn>DELETE</v-btn>
     </v-card>
