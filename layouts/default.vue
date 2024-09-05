@@ -19,7 +19,7 @@
                 :key="item.value"
                 class="d-flex align-center"
               >
-                <v-btn text @click="navigateTo(item.value)">
+                <v-btn :to="item.value" text activeClass>
                   {{ item.title }}
                 </v-btn>
               </v-col>
@@ -36,7 +36,8 @@
             <v-list-item
               v-for="item in items"
               :key="item.value"
-              @click="navigateTo(item.value)"
+              :to="item.value"
+              activeClass
             >
               {{ item.title }}
             </v-list-item>
@@ -52,6 +53,8 @@
 </template>
 
 <script setup>
+const route = useRoute();
+const userId = route.params.userId;
 const items = [
   {
     title: 'All Users',
@@ -59,7 +62,7 @@ const items = [
   },
   {
     title: 'My Places',
-    value: '/',
+    value: `/${userId}/places`,
   },
   {
     title: 'Add Place',
