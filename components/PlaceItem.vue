@@ -17,20 +17,39 @@
           :lng="place.placeLocation.lng"
         />
       </Dialog>
-      <v-btn>EDIT</v-btn>
-      <v-btn>DELETE</v-btn>
+      <v-btn @click="navigateToEditPage">EDIT</v-btn>
+      <v-btn @click="deletePlace">DELETE</v-btn>
     </v-card>
   </div>
 </template>
 
 <script setup>
+import { PlacesApi } from '~/api-client';
+
 const props = defineProps({
   place: {
     type: Object,
     required: true,
   },
 });
-console.log('Place props:', props.place);
+
+const router = useRouter();
+
+const navigateToEditPage = () => {
+  router.push(`/places/${props.place.id}`);
+};
+
+const deletePlace = async () => {
+  const placesApi = new PlacesApi();
+  try {
+    await placesApi.apiPlacesIdDelete({ id: props.place.id });
+    alert('Place deleted successfully');
+    router.push(`/${props.place.creator}/places`);
+  } catch (error) {
+    console.error('Error deleting place:', error);
+    alert('Failed to delete place');
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>
