@@ -24,7 +24,9 @@
 </template>
 
 <script setup>
-import { PlacesApi } from '~/api-client';
+import { PlacesApi, Configuration } from '~/api-client';
+import { useAuthStore } from '~/store/auth'; 
+const authStore = useAuthStore(); 
 
 const props = defineProps({
   place: {
@@ -40,14 +42,17 @@ const navigateToEditPage = () => {
 };
 
 const deletePlace = async () => {
-  const placesApi = new PlacesApi();
+  const configuration = new Configuration({
+    apiKey: authStore.token,
+  });
+  const placesApi = new PlacesApi(configuration);
   try {
     await placesApi.apiPlacesIdDelete({ id: props.place.id });
     alert('Place deleted successfully');
     router.push(`/${props.place.creator}/places`);
   } catch (error) {
     console.error('Error deleting place:', error);
-    alert('Failed to delete place');
+    alert('Failed to delete place, are you its owner?');
   }
 };
 </script>

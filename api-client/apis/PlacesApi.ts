@@ -59,6 +59,9 @@ export interface ApiPlacesUserUserIdGetRequest {
  *
  */
 export class PlacesApi extends runtime.BaseAPI {
+  constructor(configuration?: runtime.Configuration) {
+    super(configuration);
+  }
   /**
    */
   async apiPlacesGetRaw(

@@ -13,14 +13,20 @@
 </template>
 
 <script setup>
-import { PlacesApi } from '~/api-client';
+import { PlacesApi, Configuration } from '~/api-client';
+import { useAuthStore } from '~/store/auth'; 
+const authStore = useAuthStore(); 
 
 const places = ref([]);
 const isLoading = ref(false);
 const error = ref(null);
 const currentPage = ref(1);
 const totalPages = ref(1);
-const placesApi = new PlacesApi();
+
+const configuration = new Configuration({
+  apiKey: authStore.token,
+});
+const placesApi = new PlacesApi(configuration);
 
 const route = useRoute();
 const userId = route.params.userId;
@@ -50,6 +56,10 @@ watch(currentPage, (newPage) => {
 
 onMounted(() => {
   fetchPlaces();
+});
+
+definePageMeta({
+  middleware: ['auth'],
 });
 </script>
 

@@ -1,18 +1,22 @@
 <template>
   <div class="center">
-    <h2>PlaceId: {{ placeId }}</h2>
     <PlaceForm :onSubmit="handleFormSubmit" />
   </div>
 </template>
 
 <script setup>
-import { PlacesApi } from '~/api-client';
+import { PlacesApi, Configuration } from '~/api-client';
+import { useAuthStore } from '~/store/auth'; 
+const authStore = useAuthStore(); 
 
 const { placeId } = useRoute().params;
 const router = useRouter();
 
 const handleFormSubmit = async (formData) => {
-  const placesApi = new PlacesApi();
+  const configuration = new Configuration({
+    apiKey: authStore.token,
+  });
+  const placesApi = new PlacesApi(configuration);
 
   try {
     console.log('Submitting form with data:', formData);
@@ -29,7 +33,7 @@ const handleFormSubmit = async (formData) => {
     router.push(`/${creatorId}/places`);
   } catch (error) {
     console.error('Error updating place:', error);
-    alert('Failed to update place');
+    alert('Failed to update place, are you its owner?');
   }
 };
 </script>

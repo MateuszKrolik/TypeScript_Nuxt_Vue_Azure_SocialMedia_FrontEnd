@@ -15,7 +15,7 @@
           <template v-if="$vuetify.display.mdAndUp">
             <v-row>
               <v-col
-                v-for="item in items"
+                v-for="item in filteredNavigationItems"
                 :key="item.value"
                 class="d-flex align-center"
               >
@@ -34,7 +34,7 @@
         >
           <v-list>
             <v-list-item
-              v-for="item in items"
+              v-for="item in filteredNavigationItems"
               :key="item.value"
               :to="item.value"
               activeClass
@@ -53,29 +53,50 @@
 </template>
 
 <script setup>
-const route = useRoute();
-const userId = route.params.userId;
-const items = [
+import { useAuthStore } from '~/store/auth';
+
+const authStore = useAuthStore();
+
+const drawer = ref(false);
+const group = ref(null);
+
+const userId = computed(() => authStore.userId);
+const isAuthenticated = computed(() => authStore.isAuthenticated);
+
+const navigationItems = computed(() => [
   {
     title: 'All Users',
     value: '/',
+    requiresAuth: false,
+    hideWhenAuthenticated: false,
   },
   {
     title: 'My Places',
-    value: `/${userId}/places`,
+    value: `/${userId.value}/places`,
+    requiresAuth: true,
+    hideWhenAuthenticated: false,
   },
   {
     title: 'Add Place',
     value: '/places/new',
+    requiresAuth: true,
+    hideWhenAuthenticated: false,
   },
   {
     title: 'Authenticate',
-    value: '/',
+    value: '/authenticate',
+    requiresAuth: false,
+    hideWhenAuthenticated: true,
   },
-];
+]);
 
-const drawer = ref(false);
-const group = ref(null);
+const filteredNavigationItems = computed(() =>
+  navigationItems.value.filter(
+    (item) =>
+      (!item.requiresAuth || isAuthenticated.value) &&
+      (!item.hideWhenAuthenticated || !isAuthenticated.value)
+  )
+);
 
 watch(group, () => {
   drawer.value = false;
