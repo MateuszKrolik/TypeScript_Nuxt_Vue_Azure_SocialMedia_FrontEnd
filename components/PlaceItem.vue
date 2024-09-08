@@ -25,8 +25,8 @@
 
 <script setup>
 import { PlacesApi, Configuration } from '~/api-client';
-import { useAuthStore } from '~/store/auth'; 
-const authStore = useAuthStore(); 
+import { useAuthStore } from '~/store/auth';
+const authStore = useAuthStore();
 
 const props = defineProps({
   place: {
@@ -35,10 +35,8 @@ const props = defineProps({
   },
 });
 
-const router = useRouter();
-
 const navigateToEditPage = () => {
-  router.push(`/places/${props.place.id}`);
+  navigateTo(`/places/${props.place.id}`);
 };
 
 const deletePlace = async () => {
@@ -47,12 +45,16 @@ const deletePlace = async () => {
   });
   const placesApi = new PlacesApi(configuration);
   try {
+    if (props.place.creator !== authStore.userId) {
+      alert("You can't delete other people's places!");
+      return;
+    }
     await placesApi.apiPlacesIdDelete({ id: props.place.id });
     alert('Place deleted successfully');
-    router.push(`/${props.place.creator}/places`);
+    navigateTo(`/${props.place.creator}/places`);
   } catch (error) {
     console.error('Error deleting place:', error);
-    alert('Failed to delete place, are you its owner?');
+    alert('Failed to delete place');
   }
 };
 </script>

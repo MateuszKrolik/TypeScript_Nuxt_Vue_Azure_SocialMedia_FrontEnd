@@ -10,6 +10,12 @@
         required
       />
 
+      <div class="forgot-password-link-container">
+        <NuxtLink class="forgot-password-link" to="/forgotPassword"
+          >Forgot Password?</NuxtLink
+        >
+      </div>
+
       <v-alert v-if="!formIsValid" type="warning"
         >Please enter a valid email and password (must be at least 6 characters
         long).</v-alert
@@ -38,7 +44,6 @@ const password = ref('');
 const mode = ref('login');
 const formIsValid = ref(true);
 const authStore = useAuthStore();
-const router = useRouter();
 
 const handleSubmit = async () => {
   formIsValid.value = true;
@@ -58,7 +63,7 @@ const handleSubmit = async () => {
   }
 
   if (authStore.token && authStore.userId) {
-    router.push(`/${authStore.userId}/places`);
+    navigateTo(`/${authStore.userId}/places`);
   } else {
     alert('Authentication failed!');
   }
@@ -76,3 +81,7 @@ const switchAuthMode = () => {
   mode.value = mode.value === 'login' ? 'signup' : 'login';
 };
 </script>
+
+<style lang="scss">
+@import url('~/assets/css/LoginForm.scss');
+</style>

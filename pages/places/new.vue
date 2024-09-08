@@ -9,7 +9,6 @@ import { PlacesApi, Configuration } from '~/api-client';
 import { useAuthStore } from '~/store/auth';
 
 const authStore = useAuthStore();
-const router = useRouter();
 
 const handleFormSubmit = async (formData) => {
   const configuration = new Configuration({
@@ -28,7 +27,7 @@ const handleFormSubmit = async (formData) => {
     });
     alert('Form submitted successfully');
     const creatorId = response.creator;
-    router.push(`/${creatorId}/places`);
+    navigateTo(`/${creatorId}/places`);
   } catch (error) {
     console.error('Error submitting form:', error);
     alert('Failed to submit form');

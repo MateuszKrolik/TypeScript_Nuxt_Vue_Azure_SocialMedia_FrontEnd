@@ -23,6 +23,11 @@
                   {{ item.title }}
                 </v-btn>
               </v-col>
+              <v-col>
+                <v-btn v-if="isAuthenticated" @click="logout" text>
+                  Logout
+                </v-btn>
+              </v-col>
             </v-row>
           </template>
         </v-app-bar>
@@ -40,6 +45,9 @@
               activeClass
             >
               {{ item.title }}
+            </v-list-item>
+            <v-list-item v-if="isAuthenticated" @click="logout">
+              Logout
             </v-list-item>
           </v-list>
         </v-navigation-drawer>
@@ -97,6 +105,11 @@ const filteredNavigationItems = computed(() =>
       (!item.hideWhenAuthenticated || !isAuthenticated.value)
   )
 );
+
+const logout = () => {
+  authStore.logout();
+  navigateTo('/authenticate');
+};
 
 watch(group, () => {
   drawer.value = false;

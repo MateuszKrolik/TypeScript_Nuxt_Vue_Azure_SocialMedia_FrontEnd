@@ -44,9 +44,13 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+  initialValues: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
-const { handleSubmit, handleReset } = useForm({
+const { handleSubmit, handleReset, setValues } = useForm({
   validationSchema: {
     title(value) {
       if (value?.length >= 2) return true;
@@ -78,6 +82,14 @@ const imageRules = ref([
     );
   },
 ]);
+
+watch(
+  () => props.initialValues,
+  (newValues) => {
+    setValues(newValues);
+  },
+  { immediate: true }
+);
 
 const submit = handleSubmit((values) => {
   props.onSubmit({ ...values, image: image.value });
