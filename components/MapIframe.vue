@@ -1,13 +1,15 @@
 <template>
-  <iframe
-    width="100%"
-    height="450"
-    style="border: 0"
-    loading="lazy"
-    allowfullscreen
-    referrerpolicy="no-referrer-when-downgrade"
-    :src="mapUrl"
-  ></iframe>
+  <div>
+    <iframe
+      width="100%"
+      height="450"
+      style="border: 0"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      :src="mapUrl"
+    ></iframe>
+  </div>
 </template>
 
 <script setup>

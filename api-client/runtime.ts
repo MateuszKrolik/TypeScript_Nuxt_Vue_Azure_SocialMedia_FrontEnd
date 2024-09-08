@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-export const BASE_PATH = 'http://localhost:5088/'.replace(/\/+$/, '');
+export const BASE_PATH =
+  'https://mkrolik-places.ashycoast-2fd8c4d9.germanywestcentral.azurecontainerapps.io/'.replace(
+    /\/+$/,
+    ''
+  );
+
+// export const BASE_PATH = 'http://localhost:5088/'.replace(/\/+$/, '');
 
 export interface ConfigurationParameters {
   basePath?: string; // override base path

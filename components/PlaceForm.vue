@@ -1,38 +1,40 @@
 <template>
-  <form @submit.prevent="submit">
-    <v-text-field
-      v-model="title.value.value"
-      :counter="10"
-      :error-messages="title.errorMessage.value"
-      label="Title"
-    ></v-text-field>
+  <div>
+    <form @submit.prevent="submit">
+      <v-text-field
+        v-model="title.value.value"
+        :counter="10"
+        :error-messages="title.errorMessage.value"
+        label="Title"
+      ></v-text-field>
 
-    <v-text-field
-      v-model="address.value.value"
-      :counter="20"
-      :error-messages="address.errorMessage.value"
-      label="Address"
-    ></v-text-field>
+      <v-text-field
+        v-model="address.value.value"
+        :counter="20"
+        :error-messages="address.errorMessage.value"
+        label="Address"
+      ></v-text-field>
 
-    <v-file-input
-      v-model="image"
-      :rules="imageRules"
-      accept="image/png, image/jpeg, image/jpg"
-      label="Image"
-      placeholder="Pick an image"
-      prepend-icon="mdi-camera"
-    ></v-file-input>
+      <v-file-input
+        v-model="image"
+        :rules="imageRules"
+        accept="image/png, image/jpeg, image/jpg"
+        label="Image"
+        placeholder="Pick an image"
+        prepend-icon="mdi-camera"
+      ></v-file-input>
 
-    <v-textarea
-      v-model="description.value.value"
-      :counter="50"
-      :error-messages="description.errorMessage.value"
-      label="Description"
-    ></v-textarea>
+      <v-textarea
+        v-model="description.value.value"
+        :counter="50"
+        :error-messages="description.errorMessage.value"
+        label="Description"
+      ></v-textarea>
 
-    <v-btn class="me-4" type="submit">Submit</v-btn>
-    <v-btn @click="handleReset">Clear</v-btn>
-  </form>
+      <v-btn class="me-4" type="submit">Submit</v-btn>
+      <v-btn @click="handleReset">Clear</v-btn>
+    </form>
+  </div>
 </template>
 
 <script setup>
